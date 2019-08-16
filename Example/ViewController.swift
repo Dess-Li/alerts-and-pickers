@@ -307,11 +307,20 @@ class ViewController: UIViewController {
             alert.show()
             
         case .countryPicker:
+//            guard let fileURL = Bundle.main.path(forResource: "Test.bundle/Data/BankNameCodes", ofType: "json"),
+//                let jsonData = try? Data.init(contentsOf: URL(fileURLWithPath: fileURL)) else{
+//                    fatalError("`JSON File Fetch Failed`")
+//            }
+//            if let jsonObjects = (try? JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.allowFragments)) as? Array<Any> {
+//                let alert = UIAlertController(style: self.alertStyle)
+//                alert.addSelectListPicker(listData: jsonObjects) { info in Log(info) }
+//                alert.addAction(title: "Cancel", style: .cancel)
+//                alert.show()
+//            }
             let alert = UIAlertController(style: self.alertStyle)
             alert.addLocalePicker(type: .country) { info in Log(info) }
             alert.addAction(title: "Cancel", style: .cancel)
             alert.show()
-            
         case .phoneCodePicker:
             let alert = UIAlertController(style: self.alertStyle)
             alert.addLocalePicker(type: .phoneCode) { info in Log(info) }

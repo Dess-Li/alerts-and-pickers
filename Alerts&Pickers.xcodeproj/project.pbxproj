@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C2FB678D2305A869006DF45E /* SelectListPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2FB67832305A869006DF45E /* SelectListPickerViewController.swift */; };
+		C2FB678E2305A869006DF45E /* SelectListStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2FB67852305A869006DF45E /* SelectListStore.swift */; };
+		C2FB678F2305A869006DF45E /* SelectListInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2FB67872305A869006DF45E /* SelectListInfo.swift */; };
+		C2FB67922305A869006DF45E /* SelectListNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2FB678B2305A869006DF45E /* SelectListNameCell.swift */; };
 		FA005E922015D769001EA8C6 /* Contacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA005E912015D769001EA8C6 /* Contacts.swift */; };
 		FA005E942015E490001EA8C6 /* UISearchBar+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA005E932015E490001EA8C6 /* UISearchBar+Extensions.swift */; };
 		FA005E9620162BB5001EA8C6 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA005E9520162BB5001EA8C6 /* Assets.swift */; };
@@ -73,6 +77,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C2FB67832305A869006DF45E /* SelectListPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectListPickerViewController.swift; sourceTree = "<group>"; };
+		C2FB67852305A869006DF45E /* SelectListStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectListStore.swift; sourceTree = "<group>"; };
+		C2FB67872305A869006DF45E /* SelectListInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectListInfo.swift; sourceTree = "<group>"; };
+		C2FB678B2305A869006DF45E /* SelectListNameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectListNameCell.swift; sourceTree = "<group>"; };
 		FA005E912015D769001EA8C6 /* Contacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contacts.swift; sourceTree = "<group>"; };
 		FA005E932015E490001EA8C6 /* UISearchBar+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISearchBar+Extensions.swift"; sourceTree = "<group>"; };
 		FA005E9520162BB5001EA8C6 /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
@@ -151,6 +159,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C2FB67812305A869006DF45E /* SelectList */ = {
+			isa = PBXGroup;
+			children = (
+				C2FB67832305A869006DF45E /* SelectListPickerViewController.swift */,
+				C2FB67842305A869006DF45E /* Managers */,
+				C2FB67862305A869006DF45E /* Models */,
+				C2FB67882305A869006DF45E /* Views */,
+			);
+			path = SelectList;
+			sourceTree = "<group>";
+		};
+		C2FB67842305A869006DF45E /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				C2FB67852305A869006DF45E /* SelectListStore.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		C2FB67862305A869006DF45E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C2FB67872305A869006DF45E /* SelectListInfo.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C2FB67882305A869006DF45E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C2FB678B2305A869006DF45E /* SelectListNameCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		FA3BB26A2008B41B00E06F8F = {
 			isa = PBXGroup;
 			children = (
@@ -221,6 +264,7 @@
 		FA3BB2A12008B46800E06F8F /* Pickers */ = {
 			isa = PBXGroup;
 			children = (
+				C2FB67812305A869006DF45E /* SelectList */,
 				FA4B0373201A814100D282E2 /* Color */,
 				FA4B0372201A812800D282E2 /* Contacts */,
 				FAAB5C95201BCC8D00CCE04D /* Date */,
@@ -590,9 +634,11 @@
 				FA7CE6DB2014AC4C00FB3E72 /* UIImageView+Extensions.swift in Sources */,
 				FA3BB2C62008B46900E06F8F /* ViewController.swift in Sources */,
 				FA3BB2B92008B46900E06F8F /* UIImage+Extensions.swift in Sources */,
+				C2FB678F2305A869006DF45E /* SelectListInfo.swift in Sources */,
 				FA3BB2C32008B46900E06F8F /* LocalePickerViewController.swift in Sources */,
 				FA3BB2C42008B46900E06F8F /* TwoTextFieldsViewController.swift in Sources */,
 				FA3BB2B02008B46800E06F8F /* SegmentedControl.swift in Sources */,
+				C2FB678E2305A869006DF45E /* SelectListStore.swift in Sources */,
 				FA25CAA52018677A00D1CB87 /* LikeButtonCell.swift in Sources */,
 				FA4B036A201A119C00D282E2 /* SearchHistoryManager.swift in Sources */,
 				FA3BB2B32008B46800E06F8F /* UISegmentedControl+Extensions.swift in Sources */,
@@ -602,6 +648,7 @@
 				FA3BB2BE2008B46900E06F8F /* UITextField+Extensions.swift in Sources */,
 				FA3BB2B62008B46800E06F8F /* String+Extensions.swift in Sources */,
 				FAAB5C83201BC16500CCE04D /* LocaleInfo.swift in Sources */,
+				C2FB67922305A869006DF45E /* SelectListNameCell.swift in Sources */,
 				FA005E942015E490001EA8C6 /* UISearchBar+Extensions.swift in Sources */,
 				FA3BB2B52008B46800E06F8F /* Date+Extension.swift in Sources */,
 				FA3BB2C02008B46900E06F8F /* DatePickerViewController.swift in Sources */,
@@ -613,6 +660,7 @@
 				FAAB5CA0201BD4B000CCE04D /* ItemWithImage.swift in Sources */,
 				FA4B0375201A817200D282E2 /* ItemWithPhoto.swift in Sources */,
 				FA7CE67820125F0A00FB3E72 /* TelegramPickerViewController.swift in Sources */,
+				C2FB678D2305A869006DF45E /* SelectListPickerViewController.swift in Sources */,
 				FA4B036D201A119C00D282E2 /* LocationSearchResultsViewController.swift in Sources */,
 				FAAB5CA6201DEE9C00CCE04D /* UIViewController+Extensions.swift in Sources */,
 				FA3BB2B22008B46800E06F8F /* Array+Extensions.swift in Sources */,

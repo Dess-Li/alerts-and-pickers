@@ -2,30 +2,31 @@ import UIKit
 
 extension UIAlertController {
 
-    /// Add Locale Picker
+    /// Add ChinaBank Picker
     ///
     /// - Parameters:
-    ///   - type: country, phoneCode or currency
-    ///   - action: for selected locale
+    ///   - type: bankName, phoneCode
+    ///   - action: for selected ChinaBank
     
-    func addLocalePicker(type: LocalePickerViewController.Kind, selection: @escaping LocalePickerViewController.Selection) {
-        var info: LocaleInfo?
-        let selection: LocalePickerViewController.Selection = selection
+    func addSelectListPicker(listData: Array<Any>, selection: @escaping SelectListPickerViewController.Selection) {
+        var info: SelectListInfo?
+        let selection: SelectListPickerViewController.Selection = selection
         let buttonSelect: UIAlertAction = UIAlertAction(title: "Select", style: .default) { action in
             selection(info)
         }
         buttonSelect.isEnabled = false
         
-        let vc = LocalePickerViewController(type: type) { new in
+        let vc = SelectListPickerViewController { new in
             info = new
             buttonSelect.isEnabled = new != nil
         }
+        vc.listData = listData
         set(vc: vc)
         addAction(buttonSelect)
     }
 }
 
-final class LocalePickerViewController: UIViewController {
+final class SelectListPickerViewController: UIViewController {
     
     // MARK: UI Metrics
     
@@ -36,21 +37,14 @@ final class LocalePickerViewController: UIViewController {
     
     // MARK: Properties
     
-    public typealias Selection = (LocaleInfo?) -> Swift.Void
-    
-    public enum Kind {
-        case country
-        case phoneCode
-        case currency
-    }
-    
-    fileprivate var type: Kind
+    public typealias Selection = (SelectListInfo?) -> Swift.Void
+    public var listData: Array<Any> = []
     fileprivate var selection: Selection?
     
-    fileprivate var orderedInfo = [String: [LocaleInfo]]()
+    fileprivate var orderedInfo = [String: [SelectListInfo]]()
     fileprivate var sortedInfoKeys = [String]()
-    fileprivate var filteredInfo: [LocaleInfo] = []
-    fileprivate var selectedInfo: LocaleInfo?
+    fileprivate var filteredInfo: [SelectListInfo] = []
+    fileprivate var selectedInfo: SelectListInfo?
     
     //fileprivate var searchBarIsActive: Bool = false
     
@@ -88,8 +82,7 @@ final class LocalePickerViewController: UIViewController {
     
     // MARK: Initialize
     
-    required init(type: Kind, selection: @escaping Selection) {
-        self.type = type
+    required init(selection: @escaping Selection) {
         self.selection = selection
         super.init(nibName: nil, bundle: nil)
     }
@@ -120,14 +113,7 @@ final class LocalePickerViewController: UIViewController {
         //edgesForExtendedLayout = .bottom
         definesPresentationContext = true
         
-        switch type {
-        case .country:
-            tableView.register(CountryTableViewCell.self, forCellReuseIdentifier: CountryTableViewCell.identifier)
-        case .phoneCode:
-            tableView.register(PhoneCodeTableViewCell.self, forCellReuseIdentifier: PhoneCodeTableViewCell.identifier)
-        case .currency:
-            tableView.register(CurrencyTableViewCell.self, forCellReuseIdentifier: CurrencyTableViewCell.identifier)
-        }
+        tableView.register(SelectListTableViewCell.self, forCellReuseIdentifier: SelectListTableViewCell.identifier)
         
         updateInfo()
     }
@@ -149,17 +135,17 @@ final class LocalePickerViewController: UIViewController {
     func updateInfo() {
         indicatorView.startAnimating()
         
-        LocaleStore.fetch { [unowned self] result in
+        SelectListStore.fetch(jsonData: self.listData) { [unowned self] result in
             switch result {
                 
             case .success(let orderedInfo):
-                let data: [String: [LocaleInfo]] = orderedInfo
+                let data: [String: [SelectListInfo]] = orderedInfo
                 /*
                  switch self.type {
                  case .currency:
                  data = data.filter { i in
                  guard let code = i.currencyCode else { return false }
-                 return Locale.commonISOCurrencyCodes.contains(code)
+                 return ChinaBank.commonISOCurrencyCodes.contains(code)
                  }.sorted { $0.currencyCode < $1.currencyCode }
                  default: break }
                  */
@@ -189,18 +175,11 @@ final class LocalePickerViewController: UIViewController {
     
     func sortFilteredInfo() {
         filteredInfo = filteredInfo.sorted { lhs, rhs in
-            switch type {
-            case .country:
-                return lhs.country < rhs.country
-            case .phoneCode:
-                return lhs.country < rhs.country
-            case .currency:
-                return lhs.country < rhs.country
-            }
+            return lhs.title < rhs.title
         }
     }
     
-    func info(at indexPath: IndexPath) -> LocaleInfo? {
+    func info(at indexPath: IndexPath) -> SelectListInfo? {
         if searchController.isActive {
             return filteredInfo[indexPath.row]
         }
@@ -215,7 +194,7 @@ final class LocalePickerViewController: UIViewController {
         guard let selectedInfo = selectedInfo else { return nil }
         if searchController.isActive {
             for row in 0 ..< filteredInfo.count {
-                if filteredInfo[row].country == selectedInfo.country {
+                if filteredInfo[row].title == selectedInfo.title {
                     return IndexPath(row: row, section: 0)
                 }
             }
@@ -223,7 +202,7 @@ final class LocalePickerViewController: UIViewController {
         for section in 0 ..< sortedInfoKeys.count {
             if let orderedInfo = orderedInfo[sortedInfoKeys[section]] {
                 for row in 0 ..< orderedInfo.count {
-                    if orderedInfo[row].country == selectedInfo.country {
+                    if orderedInfo[row].title == selectedInfo.title {
                         return IndexPath(row: row, section: section)
                     }
                 }
@@ -235,13 +214,13 @@ final class LocalePickerViewController: UIViewController {
 
 // MARK: - UISearchResultsUpdating
 
-extension LocalePickerViewController: UISearchResultsUpdating {
+extension SelectListPickerViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
         if let searchText = searchController.searchBar.text, searchController.isActive {
             filteredInfo = []
             if searchText.count > 0, let values = orderedInfo[String(searchText[searchText.startIndex])] {
-                filteredInfo.append(contentsOf: values.filter { $0.country.hasPrefix(searchText) })
+                filteredInfo.append(contentsOf: values.filter { $0.title.hasPrefix(searchText) })
             } else {
                 orderedInfo.forEach { key, value in
                     filteredInfo += value
@@ -259,7 +238,7 @@ extension LocalePickerViewController: UISearchResultsUpdating {
 
 // MARK: - UISearchBarDelegate
 
-extension LocalePickerViewController: UISearchBarDelegate {
+extension SelectListPickerViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
 
@@ -268,7 +247,7 @@ extension LocalePickerViewController: UISearchBarDelegate {
 
 // MARK: - TableViewDelegate
 
-extension LocalePickerViewController: UITableViewDelegate {
+extension SelectListPickerViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let info = info(at: indexPath) else { return }
@@ -279,7 +258,7 @@ extension LocalePickerViewController: UITableViewDelegate {
 
 // MARK: - TableViewDataSource
 
-extension LocalePickerViewController: UITableViewDataSource {
+extension SelectListPickerViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         if searchController.isActive { return 1 }
@@ -316,34 +295,40 @@ extension LocalePickerViewController: UITableViewDataSource {
         
         let cell: UITableViewCell
         
-        switch type {
-            
-        case .country:
-            cell = tableView.dequeueReusableCell(withIdentifier: CountryTableViewCell.identifier) as! CountryTableViewCell
-            cell.textLabel?.text = info.country
-            
-        case .phoneCode:
-            cell = tableView.dequeueReusableCell(withIdentifier: PhoneCodeTableViewCell.identifier) as! PhoneCodeTableViewCell
-            cell.textLabel?.text = info.phoneCode
-            cell.detailTextLabel?.text = info.country
-            
-        case .currency:
-            cell = tableView.dequeueReusableCell(withIdentifier: CurrencyTableViewCell.identifier) as! CurrencyTableViewCell
-            cell.textLabel?.text = info.currencyCode
-            cell.detailTextLabel?.text = info.country
-        }
+        cell = tableView.dequeueReusableCell(withIdentifier: SelectListTableViewCell.identifier) as! SelectListTableViewCell
+        cell.textLabel?.text = info.title
         
         cell.detailTextLabel?.textColor = .darkGray
         
         DispatchQueue.main.async {
             let size: CGSize = CGSize(width: 32, height: 24)
-            let flag: UIImage? = info.flag?.imageWithSize(size: size, roundedRadius: 3)
-            cell.imageView?.image = flag
+            switch info.leftImageType {
+            case "assets":
+                cell.imageView?.image = UIImage(named: info.leftImageType!)?.imageWithSize(size: size, roundedRadius: 3)
+            case "url":
+                let url = URL(string: info.leftImageType!)!
+                let request = URLRequest(url: url)
+                let session = URLSession.shared
+                let dataTask = session.dataTask(with: request, completionHandler: {
+                    (data, response, error) -> Void in
+                    if error != nil{
+                        print(error.debugDescription)
+                    }else{
+                        let img = UIImage(data:data!)
+                        DispatchQueue.main.async {
+                            cell.imageView?.image = img?.imageWithSize(size: size, roundedRadius: 3)
+                        }
+                        
+                    }
+                }) as URLSessionTask
+                dataTask.resume()
+            default: break
+            }
             cell.setNeedsLayout()
             cell.layoutIfNeeded()
         }
         
-        if let selected = selectedInfo, selected.country == info.country {
+        if let selected = selectedInfo, selected.title == info.title {
             cell.isSelected = true
         }
         
