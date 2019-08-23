@@ -307,13 +307,13 @@ class ViewController: UIViewController {
             alert.show()
             
         case .countryPicker:
-//            guard let fileURL = Bundle.main.path(forResource: "Test.bundle/Data/BankNameCodes", ofType: "json"),
+//            guard let fileURL = Bundle.main.path(forResource: "Test.bundle/Data/Codes", ofType: "json"),
 //                let jsonData = try? Data.init(contentsOf: URL(fileURLWithPath: fileURL)) else{
 //                    fatalError("`JSON File Fetch Failed`")
 //            }
 //            if let jsonObjects = (try? JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.allowFragments)) as? Array<Any> {
 //                let alert = UIAlertController(style: self.alertStyle)
-//                alert.addSelectListPicker(listData: jsonObjects) { info in Log(info) }
+//                alert.addSelectListPicker(listData: jsonObjects, viewMode: true) { info in Log(info) }
 //                alert.addAction(title: "Cancel", style: .cancel)
 //                alert.show()
 //            }

@@ -8,7 +8,7 @@ extension UIAlertController {
     ///   - type: bankName, phoneCode
     ///   - action: for selected ChinaBank
     
-    func addSelectListPicker(listData: Array<Any>, selection: @escaping SelectListPickerViewController.Selection) {
+    func addSelectListPicker(listData: Array<Any>, viewMode: Bool = false, selection: @escaping SelectListPickerViewController.Selection) {
         var info: SelectListInfo?
         let selection: SelectListPickerViewController.Selection = selection
         let buttonSelect: UIAlertAction = UIAlertAction(title: "Select", style: .default) { action in
@@ -22,7 +22,9 @@ extension UIAlertController {
         }
         vc.listData = listData
         set(vc: vc)
-        addAction(buttonSelect)
+        if !viewMode {
+            addAction(buttonSelect)
+        }
     }
 }
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C2E62B81230F7EF000578ECF /* Test.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C2E62B80230F7EF000578ECF /* Test.bundle */; };
 		C2FB678D2305A869006DF45E /* SelectListPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2FB67832305A869006DF45E /* SelectListPickerViewController.swift */; };
 		C2FB678E2305A869006DF45E /* SelectListStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2FB67852305A869006DF45E /* SelectListStore.swift */; };
 		C2FB678F2305A869006DF45E /* SelectListInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2FB67872305A869006DF45E /* SelectListInfo.swift */; };
@@ -77,6 +78,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C2E62B80230F7EF000578ECF /* Test.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Test.bundle; sourceTree = "<group>"; };
 		C2FB67832305A869006DF45E /* SelectListPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectListPickerViewController.swift; sourceTree = "<group>"; };
 		C2FB67852305A869006DF45E /* SelectListStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectListStore.swift; sourceTree = "<group>"; };
 		C2FB67872305A869006DF45E /* SelectListInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectListInfo.swift; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 				FA3BB28A2008B46500E06F8F /* Resources */,
 				FA3BB2AA2008B46800E06F8F /* ViewController.swift */,
 				FA3BB2AB2008B46800E06F8F /* AppDelegate.swift */,
+				C2E62B80230F7EF000578ECF /* Test.bundle */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -592,6 +595,7 @@
 				FABFAA66200C961500961895 /* Main.storyboard in Resources */,
 				FA3BB2CF2008B9FA00E06F8F /* LICENSE in Resources */,
 				FA3BB2BF2008B46900E06F8F /* Countries.bundle in Resources */,
+				C2E62B81230F7EF000578ECF /* Test.bundle in Resources */,
 				FA3BB2AD2008B46800E06F8F /* LaunchScreen.storyboard in Resources */,
 				FA3BB2AC2008B46800E06F8F /* Assets.xcassets in Resources */,
 				FA3BB2CD2008B98F00E06F8F /* Assets in Resources */,
